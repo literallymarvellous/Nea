@@ -1,0 +1,21 @@
+.container {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  // display: grid;
+  // grid-template-columns: auto;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  align-items: center;
+  background-color: red;
+  z-index: 2;
+}
+
+.items {
+  position: relative;
+  min-width: 100vw;
+  height: 500px;
+  background-color: blue;
+}
