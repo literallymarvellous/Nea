@@ -1,5 +1,5 @@
-import { MouseEvent, useEffect, useRef } from "react";
-import styles from "../../styles/components/Cursor.module.scss";
+import React, { useEffect, useRef } from "react";
+import styles from "../../styles/scss/components/Cursor.module.scss";
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null!);
@@ -7,16 +7,24 @@ const CustomCursor = () => {
   useEffect(() => {
     console.log(cursorRef);
 
-    document.addEventListener("mousemove", (e) => {
+    const mouseMove = (e: globalThis.MouseEvent) => {
       const { clientX, clientY } = e;
+
       const mouseX = clientX - cursorRef.current.clientWidth / 2;
       const mouseY = clientY - cursorRef.current.clientHeight / 2;
+
       cursorRef.current.style.transform = `translate3d(
         ${mouseX}px,
         ${mouseY}px,
         0
       )`;
-    });
+    };
+
+    document.addEventListener("mousemove", mouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", mouseMove);
+    };
   }, []);
 
   return <div className={styles.cursor} ref={cursorRef}></div>;

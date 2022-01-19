@@ -1,5 +1,5 @@
 import Header from "./Header";
-import styles from "../../styles/layout/Layout.module.scss";
+import styles from "../../styles/scss/layout/Layout.module.scss";
 import CustomCursor from "../CustomCursor";
 
 interface LayoutProps {

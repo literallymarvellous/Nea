@@ -1,0 +1,16 @@
+// colors
+$darkorange: hsl(17, 71%, 47%);
+$black: hsl(30, 13%, 3%);
+$white: hsl(0, 0%, 88%);
+$lightgray: hsl(26, 4%, 63%);
+$darkgray: hsl(14, 13%, 33%);
+$mediumgray: hsl(16, 9%, 53%);
+$lightorange: hsl(10, 31%, 48%);
+$orangered: hsl(16, 93%, 43%);
+$swatch_8: hsl(11, 32%, 74%);
+
+:export {
+  blackClr: $black;
+  whiteClr: $white;
+  orangeredClr: $orangered;
+}
