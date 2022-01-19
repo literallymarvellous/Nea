@@ -1,12 +1,32 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
 import styles from "../styles/scss/pages/Home.module.scss";
+import LocomotiveScroll from "locomotive-scroll";
+import ASScroll from "@ashthornton/asscroll";
 
 const Home: NextPage = () => {
+  const ref = useRef<HTMLDivElement>(null!);
+  useEffect(() => {
+    const locoscroll = new LocomotiveScroll({
+      el: ref.current,
+      smooth: true,
+      horizontal: true,
+    });
+
+    const scroll = () => {
+      locoscroll.enable();
+    };
+    window.addEventListener("load", scroll);
+
+    return () => {
+      window.removeEventListener("load", scroll);
+    };
+  }, []);
   return (
-    <div className={styles.container}>
+    <div ref={ref} className={`${styles.container} scroll-container`}>
       <Head>
         <title>Nea</title>
         <meta name="description" content="Your self curated news feed" />

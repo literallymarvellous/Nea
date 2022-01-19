@@ -12,7 +12,7 @@ const NewsSectionContainer = ({
 }: NewsSectionContainerProps) => {
   return (
     <>
-      <NewsContainer bgColor={bgColor} width={width}>
+      <NewsContainer className="asscroll" bgColor={bgColor} width={width}>
         Hello
       </NewsContainer>
     </>
