@@ -1,33 +1,38 @@
+import ASScroll from "@ashthornton/asscroll";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
 import styles from "../styles/scss/pages/Home.module.scss";
-// @ts-ignore
-import LocomotiveScroll from "locomotive-scroll";
-import ASScroll from "@ashthornton/asscroll";
 
 const Home: NextPage = () => {
-  const ref = useRef<HTMLDivElement>(null!);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const locoscroll = new LocomotiveScroll({
-      el: ref.current,
-      smooth: true,
-      horizontal: true,
-    });
+    let asscroll: any;
 
-    const scroll = () => {
-      locoscroll.enable();
-    };
-    window.addEventListener("load", scroll);
+    if (typeof window === "object" && scrollRef !== null) {
+      const initAsscroll = async () => {
+        const ASScroll = await import("@ashthornton/asscroll");
+        asscroll = new ASScroll.default({
+          //@ts-ignore
+          containerElement: scrollRef.current,
+        });
+        asscroll.enable({
+          horizontalScroll: true,
+        });
+      };
+      initAsscroll();
+      if (asscroll) console.log(asscroll);
+      console.log("yea");
+    }
 
-    return () => {
-      window.removeEventListener("load", scroll);
-    };
+    return () => asscroll.disable();
   }, []);
+
   return (
-    <div ref={ref} className={`${styles.container} scroll-container`}>
+    <div ref={scrollRef} className={`${styles.container} asscroll-container`}>
       <Head>
         <title>Nea</title>
         <meta name="description" content="Your self curated news feed" />
