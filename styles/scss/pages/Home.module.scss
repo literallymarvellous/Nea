@@ -5,7 +5,7 @@
   width: 100%;
   display: grid;
   grid-auto-flow: column;
-  overflow-x: scroll;
+  overflow: hidden;
   align-items: center;
   z-index: 2;
 }

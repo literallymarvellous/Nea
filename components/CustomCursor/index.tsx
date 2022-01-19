@@ -19,8 +19,9 @@ const CustomCursor = () => {
         0
       )`;
     };
-
-    document.addEventListener("mousemove", mouseMove);
+    if (cursorRef) {
+      document.addEventListener("mousemove", mouseMove);
+    }
 
     return () => {
       window.removeEventListener("mousemove", mouseMove);

@@ -7,6 +7,8 @@ export interface NewsContainerProps {
 }
 
 export const NewsContainer = styled.div<NewsContainerProps>`
+  position: relative;
+  inset: 0;
   height: 100%;
   min-width: 500px;
   width: ${(props) => props.width || "700px"};

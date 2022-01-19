@@ -13,3 +13,7 @@ body {
     "Lucida Sans", Arial, sans-serif;
   background-color: $white;
 }
+
+.asscrollbar > div > div {
+  visibility: hidden;
+}
