@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
 import styles from "../styles/scss/pages/Home.module.scss";
+// @ts-ignore
 import LocomotiveScroll from "locomotive-scroll";
 import ASScroll from "@ashthornton/asscroll";
 
