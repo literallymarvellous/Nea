@@ -5,8 +5,6 @@ const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null!);
 
   useEffect(() => {
-    console.log(cursorRef);
-
     const mouseMove = (e: globalThis.MouseEvent) => {
       const { clientX, clientY } = e;
 

@@ -1,20 +1,23 @@
-import ASScroll from "@ashthornton/asscroll";
 import type { NextPage } from "next";
-import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
+import { useFetch } from "../hooks/useFetchData";
 import styles from "../styles/scss/pages/Home.module.scss";
 
 const Home: NextPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const scrollbarRef = useRef<HTMLDivElement>(null);
+
+  const { data, isLoading, isError } = useFetch(
+    `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&locale=us`
+  );
+  console.log(process.env.NEXT_PUBLIC_GNEWS_TOKEN);
+  console.log(data);
 
   useEffect(() => {
     let asscroll: any;
 
     if (typeof window === "object" && scrollRef !== null) {
-      console.log(scrollRef.current);
       const initAsscroll = async () => {
         const ASScroll = await import("@ashthornton/asscroll");
         asscroll = new ASScroll.default({
