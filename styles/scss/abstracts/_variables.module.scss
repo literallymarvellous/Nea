@@ -9,8 +9,12 @@ $lightorange: hsl(10, 31%, 48%);
 $orangered: hsl(16, 93%, 43%);
 $swatch_8: hsl(11, 32%, 74%);
 
+// heights
+$headerheight: 30px;
+
 :export {
   blackClr: $black;
   whiteClr: $white;
   orangeredClr: $orangered;
+  headerHeight: $headerheight;
 }

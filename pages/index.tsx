@@ -8,14 +8,15 @@ import styles from "../styles/scss/pages/Home.module.scss";
 const Home: NextPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading, isError } = useFetch(
-    `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&locale=us`
-  );
-  console.log(process.env.NEXT_PUBLIC_GNEWS_TOKEN);
-  console.log(data);
+  // const { data, isLoading, isError } = useFetch(
+  //   `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&locale=us`
+  // );
+  // console.log(process.env.NEXT_PUBLIC_GNEWS_TOKEN);
+  // console.log(data);
 
   useEffect(() => {
     let asscroll: any;
+    console.log(scrollRef.current);
 
     if (typeof window === "object" && scrollRef !== null) {
       const initAsscroll = async () => {
@@ -23,10 +24,17 @@ const Home: NextPage = () => {
         asscroll = new ASScroll.default({
           //@ts-ignore
           containerElement: scrollRef.current,
-          scrollElements: scrollRef.current?.childNodes,
-
+          scrollElements: ".asscroll",
+          ease: 0.075,
           customScrollbar: true,
+          scrollbarEl: ".my-scrollbar",
+          scrollbarHandleEl: ".my-scrollbar__handle",
           disableNativeScrollbar: true,
+          scrollbarStyles: false,
+          limitLerpRate: true,
+          //@ts-ignore
+          blockScrollClass: ".asscroll-block",
+          touchScrollType: "scrollTop",
         });
         asscroll.enable({
           horizontalScroll: true,
@@ -34,10 +42,6 @@ const Home: NextPage = () => {
       };
       initAsscroll();
     }
-
-    window.addEventListener("click", () => {
-      console.log(asscroll.isHorizontal);
-    });
 
     return () => asscroll.disable();
   }, []);
@@ -51,21 +55,14 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <NewsSectionContainer
-          section="For you"
-          bgColor="black"
-          width="1000px"
-        />
+        <NewsSectionContainer section="For you" bgColor="black" width="600px" />
         <NewsSectionContainer section="Headlines" bgColor="orange" />
-        <NewsSectionContainer section="Sports" width="1028px" />
-        <NewsSectionContainer section="politics" width="800px" />
-        <NewsSectionContainer section="movies" />
-        <NewsSectionContainer section="health" bgColor="black" width="1000px" />
-      </div>
-      <div className="asscrollbar">
-        <div className="asscrollbar__handle">
-          <div></div>
-        </div>
+        <NewsSectionContainer section="Sports" width="700px" />
+        <NewsSectionContainer
+          section="politics"
+          bgColor="black"
+          width="800px"
+        />
       </div>
     </div>
   );

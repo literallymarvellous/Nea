@@ -11,6 +11,18 @@ const CustomCursor = () => {
       const mouseX = clientX - cursorRef.current.clientWidth / 2;
       const mouseY = clientY - cursorRef.current.clientHeight / 2;
 
+      const domRect = cursorRef.current.getBoundingClientRect();
+
+      if (
+        domRect.top <= 0 ||
+        domRect.left <= 0 ||
+        domRect.right >= document.documentElement.clientWidth ||
+        domRect.bottom >= document.documentElement.clientHeight
+      ) {
+        cursorRef.current.style.visibility = "hidden";
+      } else {
+        cursorRef.current.style.visibility = "visible";
+      }
       cursorRef.current.style.transform = `translate3d(
         ${mouseX}px,
         ${mouseY}px,
@@ -22,7 +34,7 @@ const CustomCursor = () => {
     }
 
     return () => {
-      window.removeEventListener("mousemove", mouseMove);
+      document.removeEventListener("mousemove", mouseMove);
     };
   }, []);
 
