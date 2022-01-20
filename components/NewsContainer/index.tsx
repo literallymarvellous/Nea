@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, RefObject } from "react";
+import React, { MouseEventHandler, RefObject, useRef } from "react";
 import { NewsContainer } from "../../styles/styled-components/newsContainer.styles";
 import { NewsContainerProps } from "../../styles/styled-components/newsContainer.styles";
 import InnerContainer from "./InnerContainer";
@@ -13,6 +13,21 @@ const NewsSectionContainer = ({
   width,
   last,
 }: NewsSectionContainerProps) => {
+  const blockRef = useRef<HTMLDivElement>(null);
+
+  let interval: any;
+
+  const mouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    interval = setTimeout(() => {
+      blockRef.current?.classList.add("asscroll-block");
+    }, 1000);
+  };
+
+  const mouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    console.log(interval);
+    clearInterval(interval);
+    blockRef.current?.classList.remove("asscroll-block");
+  };
   return (
     <>
       <NewsContainer
@@ -21,7 +36,12 @@ const NewsSectionContainer = ({
         width={width}
         last={last}
       >
-        <div className="asscroll-block block">
+        <div
+          className="block"
+          ref={blockRef}
+          onMouseEnter={mouseEnter}
+          onMouseLeave={mouseLeave}
+        >
           <div className="header">
             <div className="category">For you</div>
             <div>All</div>
