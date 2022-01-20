@@ -4,6 +4,7 @@ import variables from "../scss/abstracts/_variables.module.scss";
 export interface NewsContainerProps {
   readonly width?: string;
   readonly bgColor?: string;
+  readonly last?: boolean;
 }
 
 export const NewsContainer = styled.div<NewsContainerProps>`
@@ -20,6 +21,7 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   background-color: ${variables.whiteClr};
   color: ${variables.blackClr};
   overflow: scroll;
+  border-right: 1px solid ${variables.blackClr};
   z-index: 10;
 
   ${(props) => {
@@ -38,9 +40,21 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     }
   }}
 
-  .block {
+  ${(props) => {
+    if (props.last === true) {
+      return css`
+        background-color: ${variables.blackClr};
+        color: ${variables.orangeredClr};
+        width: 700px;
+      `;
+    }
+  }}
+
+  & > div {
     position: relative;
     inset: 0;
+    height: 100%;
+    width: 100%;
     z-index: -1;
   }
 
@@ -51,8 +65,16 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     align-items: center;
     padding: 15px 25px 15px 0;
     margin-right: -20px;
-    border-bottom: 1px solid ${variables.whiteClr};
+    border-bottom: 1px solid ${variables.blackClr};
     z-index: 100;
+
+    ${(props) => {
+      if (props.bgColor === "black") {
+        return css`
+          border-bottom: 1px solid ${variables.whiteClr};
+        `;
+      }
+    }}
   }
 
   .author {
@@ -92,7 +114,15 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     align-items: center;
     padding: 25px 20px 40px 0;
     margin-right: -20px;
-    border-bottom: 5px solid ${variables.whiteClr};
+    border-bottom: 5px solid ${variables.blackClr};
+
+    ${(props) => {
+      if (props.bgColor === "black") {
+        return css`
+          border-bottom: 1px solid ${variables.whiteClr};
+        `;
+      }
+    }}
 
     & > div {
       display: flex;

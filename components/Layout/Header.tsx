@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import React from "react";
 
 const links = [
-  "Home",
+  "home",
   "headlines",
   "business",
   "entertainment",
@@ -14,9 +14,6 @@ const links = [
   "sports",
   "tech",
 ];
-
-console.log(dayjs());
-console.log(dayjs().format("HH:mm"));
 
 const Header = () => {
   return (

@@ -11,13 +11,16 @@ const NewsSectionContainer = ({
   bgColor,
   section,
   width,
+  last,
 }: NewsSectionContainerProps) => {
-  const mouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(e.target);
-  };
   return (
     <>
-      <NewsContainer className="asscroll" bgColor={bgColor} width={width}>
+      <NewsContainer
+        className="asscroll"
+        bgColor={bgColor}
+        width={width}
+        last={last}
+      >
         <div className="asscroll-block block">
           <div className="header">
             <div className="category">For you</div>

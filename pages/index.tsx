@@ -55,13 +55,9 @@ const Home: NextPage = () => {
       <div ref={scrollRef} className={`${styles.container}`}>
         <NewsSectionContainer section="For you" bgColor="black" width="400px" />
         <NewsSectionContainer section="Headlines" bgColor="orange" />
-        <NewsSectionContainer section="Business" width="700px" />
-        <NewsSectionContainer section="politics" width="800px" />
-        <NewsSectionContainer
-          section="politics"
-          bgColor="black"
-          width="800px"
-        />
+        <NewsSectionContainer section="Business" width="600px" />
+        <NewsSectionContainer section="politics" width="500px" />
+        <NewsSectionContainer section="politics" last />
       </div>
     </div>
   );
