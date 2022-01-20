@@ -2,7 +2,8 @@ import Link from "next/link";
 import styles from "../../styles/scss/layout/Header.module.scss";
 import dayjs from "dayjs";
 import { FaSearch } from "react-icons/fa";
-import React from "react";
+import React, { RefObject } from "react";
+import { useRefContext } from "../../context/state";
 
 const links = [
   "home",
@@ -16,6 +17,22 @@ const links = [
 ];
 
 const Header = () => {
+  const { onLink, setOnLink } = useRefContext();
+
+  const mouseEnter = () => {
+    if (!onLink) {
+      setOnLink(true);
+      console.log(onLink);
+    }
+  };
+
+  const mouseLeave = () => {
+    if (onLink) {
+      setOnLink(false);
+      console.log(onLink);
+    }
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.topNav}>
@@ -43,7 +60,11 @@ const Header = () => {
               );
             }
             return (
-              <li key={link}>
+              <li
+                key={link}
+                onMouseEnter={mouseEnter}
+                onMouseLeave={mouseLeave}
+              >
                 <Link href={`/${link}`}>{link}</Link>
               </li>
             );

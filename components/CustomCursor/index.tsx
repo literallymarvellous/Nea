@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
+import { useRefContext } from "../../context/state";
 import styles from "../../styles/scss/components/Cursor.module.scss";
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null!);
+  const { onLink } = useRefContext();
 
   useEffect(() => {
     const mouseMove = (e: globalThis.MouseEvent) => {
@@ -37,6 +39,20 @@ const CustomCursor = () => {
       document.removeEventListener("mousemove", mouseMove);
     };
   }, []);
+
+  if (cursorRef.current !== null) {
+    if (onLink) {
+      cursorRef.current.style.width = "48px";
+      cursorRef.current.style.height = "48px";
+      cursorRef.current.style.backgroundColor = "transparent";
+    }
+
+    if (onLink === false) {
+      cursorRef.current.style.width = "";
+      cursorRef.current.style.height = "";
+      cursorRef.current.style.backgroundColor = "";
+    }
+  }
 
   return <div className={styles.cursor} ref={cursorRef}></div>;
 };

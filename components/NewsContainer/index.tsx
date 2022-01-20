@@ -17,17 +17,17 @@ const NewsSectionContainer = ({
 
   let interval: any;
 
-  const mouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    interval = setTimeout(() => {
-      blockRef.current?.classList.add("asscroll-block");
-    }, 1000);
-  };
+  // const mouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   // interval = setTimeout(() => {
+  //   //   blockRef.current?.classList.add("asscroll-block");
+  //   // }, 500);
+  //   blockRef.current?.classList.add("asscroll-block");
+  // };
 
-  const mouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(interval);
-    clearInterval(interval);
-    blockRef.current?.classList.remove("asscroll-block");
-  };
+  // const mouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   clearInterval(interval);
+  //   blockRef.current?.classList.remove("asscroll-block");
+  // };
   return (
     <>
       <NewsContainer
@@ -37,10 +37,10 @@ const NewsSectionContainer = ({
         last={last}
       >
         <div
-          className="block"
+          className="asscroll-block block"
           ref={blockRef}
-          onMouseEnter={mouseEnter}
-          onMouseLeave={mouseLeave}
+          // onMouseEnter={mouseEnter}
+          // onMouseLeave={mouseLeave}
         >
           <div className="header">
             <div className="category">For you</div>

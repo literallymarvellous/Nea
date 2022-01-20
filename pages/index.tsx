@@ -16,16 +16,22 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     let asscroll: any;
-    console.log(scrollRef.current);
 
-    if (typeof window === "object" && scrollRef !== null) {
+    const resize = () => {
+      // trigger other resize logic
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      asscroll.resize({ width, height });
+    };
+
+    if (typeof window === "object" && scrollRef.current !== null) {
       const initAsscroll = async () => {
         const ASScroll = await import("@ashthornton/asscroll");
         asscroll = new ASScroll.default({
           //@ts-ignore
           containerElement: scrollRef.current,
           scrollElements: ".asscroll",
-          ease: 0.075,
+          ease: 0.07,
           customScrollbar: true,
           scrollbarEl: ".my-scrollbar",
           scrollbarHandleEl: ".my-scrollbar__handle",
@@ -35,16 +41,31 @@ const Home: NextPage = () => {
           //@ts-ignore
           blockScrollClass: ".asscroll-block",
           touchScrollType: "scrollTop",
+          disableRaf: true,
+          disableResize: true,
         });
         asscroll.enable({
           horizontalScroll: true,
         });
+
+        if (asscroll !== null && asscroll !== undefined) {
+          const onRaf = () => {
+            asscroll.update();
+            requestAnimationFrame(onRaf);
+          };
+          requestAnimationFrame(onRaf);
+
+          window.addEventListener("resize", resize);
+        }
       };
       initAsscroll();
     }
 
-    return () => asscroll.disable();
-  }, []);
+    return () => {
+      asscroll.disable();
+      window.removeEventListener("resize", resize);
+    };
+  }, [scrollRef]);
 
   return (
     <div>
