@@ -48,21 +48,19 @@ const Home: NextPage = () => {
 
   return (
     <div>
+      <Head>
+        <title>Nea</title>
+        <meta name="description" content="Your self curated news feed" />
+      </Head>
       <div ref={scrollRef} className={`${styles.container}`}>
-        <Head>
-          <title>Nea</title>
-          <meta name="description" content="Your self curated news feed" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <NewsSectionContainer section="For you" bgColor="black" width="600px" />
-        <NewsSectionContainer section="Headlines" bgColor="orange" />
+        <NewsSectionContainer section="For you" bgColor="black" width="400px" />
+        {/* <NewsSectionContainer section="Headlines" bgColor="orange" />
         <NewsSectionContainer section="Sports" width="700px" />
         <NewsSectionContainer
           section="politics"
           bgColor="black"
           width="800px"
-        />
+        /> */}
       </div>
     </div>
   );

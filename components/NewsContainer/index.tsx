@@ -1,6 +1,7 @@
 import React, { MouseEventHandler, RefObject } from "react";
-import { NewsContainer } from "../styles/styled-components/newsContainer.styles";
-import { NewsContainerProps } from "../styles/styled-components/newsContainer.styles";
+import { NewsContainer } from "../../styles/styled-components/newsContainer.styles";
+import { NewsContainerProps } from "../../styles/styled-components/newsContainer.styles";
+import InnerContainer from "./InnerContainer";
 
 interface NewsSectionContainerProps extends NewsContainerProps {
   section: string;
@@ -17,17 +18,13 @@ const NewsSectionContainer = ({
   return (
     <>
       <NewsContainer className="asscroll" bgColor={bgColor} width={width}>
-        <div className="innerContainer">
-          <div>
+        <div className="asscroll-block">
+          <div className="header">
             <div className="category">For you</div>
             <div>All</div>
           </div>
-          <div className="asscroll-block">
-            <div>
-              <div className="source"></div>
-              <div className="icons"></div>
-            </div>
-          </div>
+          <InnerContainer />
+          <InnerContainer />
         </div>
       </NewsContainer>
     </>

@@ -12,6 +12,13 @@ $swatch_8: hsl(11, 32%, 74%);
 // heights
 $headerheight: 30px;
 
+// fonts
+$lato: "Lato", sans-serif;
+$pt-serif: "PT Serif", serif;
+$roboto: "Roboto", sans-serif;
+$montserrat: "Montserrat", sans-serif;
+$opensans: "Open Sans", sans-serif;
+
 :export {
   blackClr: $black;
   whiteClr: $white;

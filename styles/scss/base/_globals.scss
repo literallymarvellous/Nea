@@ -9,8 +9,9 @@ body {
 }
 
 body {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  // font-family: $lato;
+  // font-family: $roboto;
+
   background-color: $white;
 }
 
@@ -51,4 +52,23 @@ body {
 
 ::-webkit-scrollbar {
   visibility: hidden;
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 15px;
+  border-radius: 10px;
+  background-color: $mediumgray;
+}
+
+::-webkit-scrollbar-corner {
+  visibility: hidden;
+}
+
+.react-icons {
+  vertical-align: middle;
 }
