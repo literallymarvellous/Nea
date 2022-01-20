@@ -18,7 +18,7 @@ const NewsSectionContainer = ({
   return (
     <>
       <NewsContainer className="asscroll" bgColor={bgColor} width={width}>
-        <div className="asscroll-block">
+        <div className="asscroll-block block">
           <div className="header">
             <div className="category">For you</div>
             <div>All</div>

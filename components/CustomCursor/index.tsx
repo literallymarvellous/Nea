@@ -6,7 +6,7 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const mouseMove = (e: globalThis.MouseEvent) => {
-      const { clientX, clientY } = e;
+      const { clientX, clientY, target } = e;
 
       const mouseX = clientX - cursorRef.current.clientWidth / 2;
       const mouseY = clientY - cursorRef.current.clientHeight / 2;

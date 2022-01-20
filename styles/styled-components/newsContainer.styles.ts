@@ -15,8 +15,8 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   flex-direction: column;
   justify-content: space-between;
   min-width: 350px;
-  padding: 40px 20px 10px 20px;
-  width: ${(props) => props.width || "700px"};
+  padding: 90px 20px 10px 20px;
+  width: ${(props) => props.width || "350px"};
   background-color: ${variables.whiteClr};
   color: ${variables.blackClr};
   overflow: scroll;
@@ -38,6 +38,12 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     }
   }}
 
+  .block {
+    position: relative;
+    inset: 0;
+    z-index: -1;
+  }
+
   .header {
     display: flex;
     flex-direction: row;
@@ -54,15 +60,15 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 0;
+    padding: 40px 0;
   }
 
   .title {
     width: fit-content;
     max-width: 300px;
-    padding: 0 0 15px;
+    padding: 0px 0 25px;
     font-family: $montserrat;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 900;
     line-height: 1.2;
     text-transform: uppercase;
@@ -70,7 +76,7 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   }
 
   .image {
-    padding: 15px 0;
+    padding: 25px 0;
     margin-right: -20px;
     text-align: right;
 
@@ -84,7 +90,7 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px 40px 0;
+    padding: 25px 20px 40px 0;
     margin-right: -20px;
     border-bottom: 5px solid ${variables.whiteClr};
 

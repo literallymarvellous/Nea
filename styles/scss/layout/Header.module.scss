@@ -1,9 +1,46 @@
 @use "../abstracts" as *;
 
+%flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .header {
   position: fixed;
   inset: 0;
   height: $headerheight;
   z-index: 10;
   background-color: $white;
+  font-size: 1rem;
+  font-weight: 600;
+
+  .topNav {
+    @extend %flex-row;
+    padding: 10px 30px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $black;
+
+    .location {
+      @extend %flex-row;
+    }
+
+    .profile {
+      @extend %flex-row;
+      align-items: center;
+
+      & > div:first-child {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .bottomNav {
+    ul {
+      @extend %flex-row;
+      justify-content: space-around;
+      padding: 10px;
+      border-bottom: 1px solid $black;
+    }
+  }
 }
