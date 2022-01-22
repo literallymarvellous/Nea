@@ -1,31 +1,44 @@
 import { FaEllipsisV } from "react-icons/fa";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import policeImg from "../../public/images/images.jpeg";
 import Image from "next/image";
+import { NewsDataProps } from "../../pages";
 
-const InnerContainer = () => {
+type InnerContainerProps = {
+  data: NewsDataProps | undefined;
+};
+
+const InnerContainer = ({ data }: InnerContainerProps) => {
   return (
     <>
       <div className="author">
-        <div className="source">CNN News</div>
+        <div className="source">{data?.source.replace(".com", "")}</div>
         <div className="icons">
           <FaEllipsisV />
         </div>
       </div>
 
-      <div className="title">jupiter as youve never seen it before</div>
+      <div className="title">{data?.title}</div>
       <div className="image">
-        <Image src={policeImg} alt="police" width={300} height={200} />
+        <img
+          src={data?.image_url}
+          alt="police"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div className="footer">
         <div className="publish-time">
-          <div>10:25GMT</div>
-          <div>Atlanta Usa</div>
+          <div>
+            {dayjs(data?.published_at).format("ddd DD MMM YYYY; HH:MM ZZ")}
+          </div>
+          <div>{data?.locale}</div>
         </div>
         <div className="tags">
-          <div>#politcs</div>
-          <div>#police</div>
+          {data?.categories.map((cat) => (
+            <div key={cat}>#{cat}</div>
+          ))}
         </div>
       </div>
     </>

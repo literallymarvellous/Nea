@@ -22,14 +22,12 @@ const Header = () => {
   const mouseEnter = () => {
     if (!onLink) {
       setOnLink(true);
-      console.log(onLink);
     }
   };
 
   const mouseLeave = () => {
     if (onLink) {
       setOnLink(false);
-      console.log(onLink);
     }
   };
 

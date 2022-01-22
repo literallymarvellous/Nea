@@ -8,6 +8,8 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const mouseMove = (e: globalThis.MouseEvent) => {
+      cursorRef.current.style.visibility = "visible";
+
       const { clientX, clientY, target } = e;
 
       const mouseX = clientX - cursorRef.current.clientWidth / 2;

@@ -1,17 +1,17 @@
 import useSWR from "swr";
 
-const fetcher = async (url: string) => {
+export const fetcher = async <T>(url: string): Promise<T> => {
   try {
     const res = await fetch(url);
-    const data = await res.json();
-    return data;
+    const result = await res.json();
+    return result.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const useFetch = (url: string) => {
-  const { data, error } = useSWR(url, fetcher);
+export const useFetch = <T>(url: string, options?: {}) => {
+  const { data, error } = useSWR<T>(url, fetcher, options);
   return {
     data,
     isLoading: !error && !data,

@@ -20,7 +20,8 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   width: ${(props) => props.width || "350px"};
   background-color: ${variables.whiteClr};
   color: ${variables.blackClr};
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
   border-right: 1px solid ${variables.blackClr};
   z-index: 10;
 
@@ -84,6 +85,10 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     justify-content: space-between;
     align-items: center;
     padding: 40px 0;
+
+    .source {
+      text-transform: uppercase;
+    }
   }
 
   .title {
@@ -99,12 +104,19 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   }
 
   .image {
+    position: relative;
     padding: 25px 0;
+    margin: auto;
     margin-right: -20px;
     text-align: right;
+    width: 95%;
+    height: 60%;
 
     img {
-      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      content-visibility: auto;
     }
   }
 
@@ -128,6 +140,12 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     & > div {
       display: flex;
       flex-direction: column;
+    }
+
+    .publish-time {
+      & > div:last-child {
+        text-transform: uppercase;
+      }
     }
   }
 `;

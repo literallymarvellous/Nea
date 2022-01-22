@@ -1,10 +1,12 @@
 import React, { MouseEventHandler, RefObject, useRef } from "react";
+import { NewsDataProps } from "../../pages";
 import { NewsContainer } from "../../styles/styled-components/newsContainer.styles";
 import { NewsContainerProps } from "../../styles/styled-components/newsContainer.styles";
 import InnerContainer from "./InnerContainer";
 
 interface NewsSectionContainerProps extends NewsContainerProps {
   section: string;
+  data: NewsDataProps[] | undefined;
 }
 
 const NewsSectionContainer = ({
@@ -12,8 +14,11 @@ const NewsSectionContainer = ({
   section,
   width,
   last,
+  data,
 }: NewsSectionContainerProps) => {
   const blockRef = useRef<HTMLDivElement>(null);
+
+  let news = data && data[0];
 
   let interval: any;
 
@@ -46,8 +51,9 @@ const NewsSectionContainer = ({
             <div className="category">For you</div>
             <div>All</div>
           </div>
-          <InnerContainer />
-          <InnerContainer />
+          {data?.map((news) => (
+            <InnerContainer key={news.uuid} data={news} />
+          ))}
         </div>
       </NewsContainer>
     </>
