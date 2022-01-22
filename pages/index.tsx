@@ -1,4 +1,3 @@
-import ASScroll from "@ashthornton/asscroll";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -20,7 +19,7 @@ export type NewsDataProps = {
   image_url: string;
   language: string;
   published_at: string | Date;
-  source: string | {};
+  source: string | { name: string; url: string };
   categories: string[];
   locale: string;
   relevance_score: number | null;
@@ -34,7 +33,8 @@ const Home: NextPage = ({
   console.log(fallbackData);
 
   const { data, isLoading, isError } = useFetch<NewsDataProps[]>(
-    `https://gnews.io/api/v4/top-headlines?token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&lang=en`
+    `https://gnews.io/api/v4/top-headlines?token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&lang=en`,
+    { fallbackData }
   );
 
   console.log(data);
@@ -42,13 +42,14 @@ const Home: NextPage = ({
   useEffect(() => {
     if (typeof window !== undefined && scrollRef.current !== null) {
       let asscroll: any;
+      console.log("hey");
 
-      const resize = () => {
-        // trigger other resize logic
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        asscroll.resize({ width, height });
-      };
+      // const resize = () => {
+      //   // trigger other resize logic
+      //   const width = window.innerWidth;
+      //   const height = window.innerHeight;
+      //   asscroll.resize({ width, height });
+      // };
 
       const initAsscroll = async () => {
         const ASScroll = await import("@ashthornton/asscroll");
@@ -67,7 +68,7 @@ const Home: NextPage = ({
           blockScrollClass: ".asscroll-block",
           touchScrollType: "scrollTop",
           disableRaf: true,
-          disableResize: true,
+          disableResize: false,
         });
 
         asscroll.enable({
@@ -80,8 +81,9 @@ const Home: NextPage = ({
         };
 
         requestAnimationFrame(onRaf);
-        window.addEventListener("resize", resize);
+        // window.addEventListener("resize", resize);
 
+        // @ts-ignore
         asscroll.on("scroll", (scrollPos) => console.log(scrollPos));
       };
 
@@ -91,10 +93,10 @@ const Home: NextPage = ({
         if (asscroll) {
           asscroll.disable();
         }
-        window.removeEventListener("resize", resize);
+        // window.removeEventListener("resize", resize);
       };
     }
-  }, []);
+  }, [scrollRef, data]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -128,12 +130,6 @@ const getServerSideProps: GetServerSideProps = async (context) => {
   const data: NewsDataProps[] = await fetcher(
     `https://gnews.io/api/v4/top-headlines?token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&lang=en`
   );
-
-  // const res = await fetch(
-  //   `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&locale=us`
-  // );
-  // const result = await res.json();
-  // const data: NewsDataProps = result.data;
 
   return {
     props: { fallbackData: data },

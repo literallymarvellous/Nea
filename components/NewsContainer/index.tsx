@@ -51,8 +51,8 @@ const NewsSectionContainer = ({
             <div className="category">For you</div>
             <div>All</div>
           </div>
-          {data?.map((news) => (
-            <InnerContainer key={news.uuid} data={news} />
+          {data?.map((news, i) => (
+            <InnerContainer key={i} data={news} />
           ))}
         </div>
       </NewsContainer>

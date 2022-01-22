@@ -12,7 +12,7 @@ const InnerContainer = ({ data }: InnerContainerProps) => {
   return (
     <>
       <div className="author">
-        <div className="source">{data?.source.replace(".com", "")}</div>
+        {/* <div className="source">{data?.source.name}</div> */}
         <div className="icons">
           <FaEllipsisV />
         </div>
@@ -35,11 +35,11 @@ const InnerContainer = ({ data }: InnerContainerProps) => {
           </div>
           <div>{data?.locale}</div>
         </div>
-        <div className="tags">
+        {/* <div className="tags">
           {data?.categories.map((cat) => (
             <div key={cat}>#{cat}</div>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );

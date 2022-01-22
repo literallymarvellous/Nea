@@ -4,7 +4,8 @@ export const fetcher = async <T>(url: string): Promise<T> => {
   try {
     const res = await fetch(url);
     const result = await res.json();
-    return result.data;
+    const art = result.articles;
+    return art.splice(0, 3);
   } catch (error) {
     throw error;
   }

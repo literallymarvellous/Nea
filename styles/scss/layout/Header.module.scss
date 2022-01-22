@@ -23,6 +23,10 @@
 
     .location {
       @extend %flex-row;
+
+      & > div:first-child {
+        margin-right: 15px;
+      }
     }
 
     .profile {

@@ -35,7 +35,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.topNav}>
         <div className={styles.location}>
-          <div className="locale">US</div>
+          <div className="locale">World</div>
           <div className="time">{dayjs().format("DD MMM YYYY")}</div>
         </div>
         <div className="logo">NEA</div>
