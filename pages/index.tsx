@@ -30,14 +30,10 @@ const Home: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  console.log(fallbackData);
-
   const { data, isLoading, isError } = useFetch<NewsDataProps[]>(
     `https://gnews.io/api/v4/top-headlines?token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&lang=en`,
     { fallbackData }
   );
-
-  console.log(data);
 
   useEffect(() => {
     if (typeof window !== undefined && scrollRef.current !== null) {
@@ -57,7 +53,7 @@ const Home: NextPage = ({
           //@ts-ignore
           containerElement: scrollRef.current,
           scrollElements: ".asscroll",
-          ease: 0.07,
+          ease: 0.05,
           customScrollbar: true,
           scrollbarEl: ".my-scrollbar",
           scrollbarHandleEl: ".my-scrollbar__handle",

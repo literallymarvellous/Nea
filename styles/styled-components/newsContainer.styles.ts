@@ -24,6 +24,9 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   overflow-y: scroll;
   border-right: 1px solid ${variables.blackClr};
   z-index: 10;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* overscroll-behavior: contain; */
 
   ${(props) => {
     if (props.bgColor === "black") {
