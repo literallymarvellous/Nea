@@ -7,6 +7,8 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+//TODO: add custom layout page
+
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>

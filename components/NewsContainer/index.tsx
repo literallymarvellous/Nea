@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, RefObject, useRef } from "react";
+import { useFetch } from "../../hooks/useFetchData";
 import { NewsDataProps } from "../../pages";
 import { NewsContainer } from "../../styles/styled-components/newsContainer.styles";
 import { NewsContainerProps } from "../../styles/styled-components/newsContainer.styles";
@@ -6,7 +7,7 @@ import InnerContainer from "./InnerContainer";
 
 interface NewsSectionContainerProps extends NewsContainerProps {
   section: string;
-  data: NewsDataProps[] | undefined;
+  // data: NewsDataProps[] | undefined;
 }
 
 const NewsSectionContainer = ({
@@ -14,25 +15,11 @@ const NewsSectionContainer = ({
   section,
   width,
   last,
-  data,
 }: NewsSectionContainerProps) => {
-  const blockRef = useRef<HTMLDivElement>(null);
+  const { data, isLoading } = useFetch<NewsDataProps[]>(
+    `https://api.thenewsapi.com/v1/news/top?api_token=${process.env.NEXT_PUBLIC_THENEWSAPI_TOKEN}&language=en&categories=${section}`
+  );
 
-  let news = data && data[0];
-
-  let interval: any;
-
-  // const mouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-  //   // interval = setTimeout(() => {
-  //   //   blockRef.current?.classList.add("asscroll-block");
-  //   // }, 500);
-  //   blockRef.current?.classList.add("asscroll-block");
-  // };
-
-  // const mouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-  //   clearInterval(interval);
-  //   blockRef.current?.classList.remove("asscroll-block");
-  // };
   return (
     <>
       <NewsContainer
@@ -41,14 +28,9 @@ const NewsSectionContainer = ({
         width={width}
         last={last}
       >
-        <div
-          className="asscroll-block block"
-          ref={blockRef}
-          // onMouseEnter={mouseEnter}
-          // onMouseLeave={mouseLeave}
-        >
+        <div className="asscroll-block block">
           <div className="header">
-            <div className="category">For you</div>
+            <div className="category">{section}</div>
             <div>All</div>
           </div>
           {data?.map((news, i) => (

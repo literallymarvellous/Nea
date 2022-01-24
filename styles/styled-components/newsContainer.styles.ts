@@ -16,7 +16,7 @@ export const NewsContainer = styled.div<NewsContainerProps>`
   flex-direction: column;
   justify-content: space-between;
   min-width: 350px;
-  padding: 90px 20px 10px 20px;
+  padding: 100px 20px 10px 20px;
   width: ${(props) => props.width || "350px"};
   background-color: ${variables.whiteClr};
   color: ${variables.blackClr};
@@ -59,8 +59,6 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     inset: 0;
     height: 100%;
     width: 100%;
-    z-index: -10;
-    /* visibility: hidden; */
   }
 
   .header {
@@ -80,6 +78,11 @@ export const NewsContainer = styled.div<NewsContainerProps>`
         `;
       }
     }}
+
+    .category {
+      text-transform: capitalize;
+      font-weight: 700;
+    }
   }
 
   .author {
@@ -90,7 +93,7 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     padding: 40px 0;
 
     .source {
-      text-transform: uppercase;
+      text-transform: capitalize;
     }
   }
 
@@ -112,13 +115,13 @@ export const NewsContainer = styled.div<NewsContainerProps>`
     margin: auto;
     margin-right: -20px;
     text-align: right;
-    width: 95%;
+    width: 90%;
     height: 60%;
 
     img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: fill;
       content-visibility: auto;
     }
   }

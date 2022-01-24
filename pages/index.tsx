@@ -1,12 +1,9 @@
-import type {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-} from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
-import { fetcher, useFetch } from "../hooks/useFetchData";
+import { useRefContext } from "../context/state";
+import { useScroll } from "../hooks/useScroll";
 import styles from "../styles/scss/pages/Home.module.scss";
 
 export type NewsDataProps = {
@@ -19,82 +16,22 @@ export type NewsDataProps = {
   image_url: string;
   language: string;
   published_at: string | Date;
-  source: string | { name: string; url: string };
+  source: string;
   categories: string[];
   locale: string;
   relevance_score: number | null;
 };
 
-const Home: NextPage = ({
-  fallbackData,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home: NextPage = () => {
+  const { sections } = useRefContext();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading, isError } = useFetch<NewsDataProps[]>(
-    `https://gnews.io/api/v4/top-headlines?token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&lang=en`,
-    { fallbackData }
-  );
+  useScroll(scrollRef);
 
-  useEffect(() => {
-    if (typeof window !== undefined && scrollRef.current !== null) {
-      let asscroll: any;
-      console.log("hey");
+  // home is slice out while rendering so subtract 2 rather than 1
+  const lastIndex = sections && sections.length - 2;
 
-      // const resize = () => {
-      //   // trigger other resize logic
-      //   const width = window.innerWidth;
-      //   const height = window.innerHeight;
-      //   asscroll.resize({ width, height });
-      // };
-
-      const initAsscroll = async () => {
-        const ASScroll = await import("@ashthornton/asscroll");
-        const asscroll = new ASScroll.default({
-          //@ts-ignore
-          containerElement: scrollRef.current,
-          scrollElements: ".asscroll",
-          ease: 0.05,
-          customScrollbar: true,
-          scrollbarEl: ".my-scrollbar",
-          scrollbarHandleEl: ".my-scrollbar__handle",
-          disableNativeScrollbar: true,
-          scrollbarStyles: false,
-          limitLerpRate: true,
-          //@ts-ignore
-          blockScrollClass: ".asscroll-block",
-          touchScrollType: "scrollTop",
-          disableRaf: true,
-          disableResize: false,
-        });
-
-        asscroll.enable({
-          horizontalScroll: true,
-        });
-
-        const onRaf = () => {
-          asscroll.update();
-          requestAnimationFrame(onRaf);
-        };
-
-        requestAnimationFrame(onRaf);
-        // window.addEventListener("resize", resize);
-
-        // @ts-ignore
-        asscroll.on("scroll", (scrollPos) => console.log(scrollPos));
-      };
-
-      initAsscroll();
-
-      return () => {
-        if (asscroll) {
-          asscroll.disable();
-        }
-        // window.removeEventListener("resize", resize);
-      };
-    }
-  }, [scrollRef, data]);
-
-  if (isLoading) return <div>Loading...</div>;
+  console.log(lastIndex);
 
   return (
     <div>
@@ -103,33 +40,41 @@ const Home: NextPage = ({
         <meta name="description" content="Your self curated news feed" />
       </Head>
       <div ref={scrollRef} className={`${styles.container}`}>
-        <NewsSectionContainer
-          data={data}
-          section="For you"
-          bgColor="black"
-          width="400px"
-        />
-        <NewsSectionContainer
-          data={data}
-          section="Headlines"
-          bgColor="orange"
-        />
-        <NewsSectionContainer data={data} section="Business" width="600px" />
-        <NewsSectionContainer data={data} section="politics" width="500px" />
-        <NewsSectionContainer data={data} section="politics" last />
+        {sections.slice(1).map((section, i) => {
+          if (i === 0) {
+            return (
+              <NewsSectionContainer key={i} section={section} bgColor="black" />
+            );
+          } else if (i === 1) {
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                bgColor="orange"
+              />
+            );
+          } else if (i === lastIndex) {
+            <NewsSectionContainer
+              key={i}
+              section={section}
+              bgColor="black"
+              width="700px"
+            />;
+          }
+
+          return <NewsSectionContainer key={i} section={section} />;
+        })}
       </div>
     </div>
   );
 };
 
-const getServerSideProps: GetServerSideProps = async (context) => {
-  const data: NewsDataProps[] = await fetcher(
-    `https://gnews.io/api/v4/top-headlines?token=${process.env.NEXT_PUBLIC_GNEWS_TOKEN}&lang=en`
-  );
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const data: NewsDataProps[] = await fetcherNewsapi(newsapiurl);
 
-  return {
-    props: { fallbackData: data },
-  };
-};
+//   return {
+//     props: { fallbackData: data },
+//   };
+// };
 
 export default Home;

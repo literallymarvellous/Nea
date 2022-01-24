@@ -4,20 +4,11 @@ import dayjs from "dayjs";
 import { FaSearch } from "react-icons/fa";
 import React, { RefObject } from "react";
 import { useRefContext } from "../../context/state";
-
-const links = [
-  "home",
-  "headlines",
-  "business",
-  "entertainment",
-  "politics",
-  "science",
-  "sports",
-  "tech",
-];
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
-  const { onLink, setOnLink } = useRefContext();
+  const { onLink, setOnLink, sections } = useRefContext();
+  const { data: session } = useSession();
 
   const mouseEnter = () => {
     if (!onLink) {
@@ -31,6 +22,7 @@ const Header = () => {
     }
   };
 
+  // todo: remove links in header
   return (
     <header className={styles.header}>
       <div className={styles.topNav}>
@@ -43,27 +35,39 @@ const Header = () => {
           <div className="search">
             <FaSearch className="searchicon" />
           </div>
-          <div className="login">Login</div>
+          {session ? (
+            <div className="signIn">
+              <button onClick={() => signOut()}>Sign out</button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => signIn()}>Sign in</button>
+            </div>
+          )}
         </div>
       </div>
 
       <nav className={styles.bottomNav}>
         <ul>
-          {links.map((link) => {
-            if (link === "home") {
+          {sections.map((section) => {
+            if (section === "home") {
               return (
-                <li key={link}>
-                  <Link href="/">{link}</Link>
+                <li
+                  key={section}
+                  onMouseEnter={mouseEnter}
+                  onMouseLeave={mouseLeave}
+                >
+                  <Link href="/">{section}</Link>
                 </li>
               );
             }
             return (
               <li
-                key={link}
+                key={section}
                 onMouseEnter={mouseEnter}
                 onMouseLeave={mouseLeave}
               >
-                <Link href={`/${link}`}>{link}</Link>
+                <Link href={`/${section}`}>{section}</Link>
               </li>
             );
           })}

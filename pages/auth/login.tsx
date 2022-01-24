@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { object, string } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -31,18 +30,7 @@ const Login: NextPage = () => {
     resolver: zodResolver(createSessionSchema),
   });
 
-  const onSubmit = async (data: LoginInputs) => {
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER}/api/sessions`,
-        data,
-        { withCredentials: true }
-      );
-      router.push("/");
-    } catch (e: any) {
-      setLoginError(e);
-    }
-  };
+  const onSubmit = async (data: LoginInputs) => {};
 
   return (
     <>

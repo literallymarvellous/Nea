@@ -10,12 +10,25 @@ import {
 interface RefObject {
   onLink: boolean;
   setOnLink: React.Dispatch<React.SetStateAction<boolean>>;
+  sections: string[];
 }
+
+const sections = [
+  "home",
+  "general",
+  "tech",
+  "business",
+  "science",
+  "sports",
+  "entertainment",
+  "politics",
+];
 
 // export const RefContext = createContext<RefObject>();
 export const RefContext = createContext<RefObject>({
   onLink: false,
   setOnLink: () => null,
+  sections,
 });
 
 interface AppProps {
@@ -26,11 +39,13 @@ export const Provider = ({ children }: AppProps) => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const [onLink, setOnLink] = useState(false);
   return (
-    <RefContext.Provider value={{ onLink, setOnLink }}>
+    <RefContext.Provider value={{ onLink, setOnLink, sections }}>
       {children}
     </RefContext.Provider>
   );
 };
+
+// TODO: change context name
 
 export const useRefContext = () => {
   return useContext(RefContext);

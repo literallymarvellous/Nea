@@ -3,29 +3,37 @@ import dayjs from "dayjs";
 import policeImg from "../../public/images/images.jpeg";
 import Image from "next/image";
 import { NewsDataProps } from "../../pages";
+import Link from "next/link";
 
 type InnerContainerProps = {
   data: NewsDataProps | undefined;
 };
 
 const InnerContainer = ({ data }: InnerContainerProps) => {
+  const modalHandle = () => {};
   return (
     <>
       <div className="author">
-        {/* <div className="source">{data?.source.name}</div> */}
+        <div className="source">{data?.source.replace(".com", "")}</div>
         <div className="icons">
           <FaEllipsisV />
         </div>
       </div>
 
-      <div className="title">{data?.title}</div>
+      <div className="title">
+        <a href={data?.url} target="_blank" rel="noreferrer">
+          {data?.title}
+        </a>
+      </div>
       <div className="image">
-        <img
-          src={data?.image_url}
-          alt="police"
-          loading="lazy"
-          decoding="async"
-        />
+        <a href={data?.url} target="_blank" rel="noreferrer">
+          <img
+            src={data?.image_url}
+            alt="police"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
       </div>
 
       <div className="footer">
@@ -35,11 +43,11 @@ const InnerContainer = ({ data }: InnerContainerProps) => {
           </div>
           <div>{data?.locale}</div>
         </div>
-        {/* <div className="tags">
+        <div className="tags">
           {data?.categories.map((cat) => (
             <div key={cat}>#{cat}</div>
           ))}
-        </div> */}
+        </div>
       </div>
     </>
   );
