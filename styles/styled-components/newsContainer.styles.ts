@@ -76,6 +76,10 @@ export const NewsContainer = styled.div<NewsContainerProps>`
         return css`
           border-bottom: 1px solid ${variables.whiteClr};
         `;
+      } else if (props.bgColor === "orange") {
+        return css`
+          background-color: ${variables.whiteClr};
+        `;
       }
     }}
 
