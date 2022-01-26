@@ -1,47 +1,98 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
+import { useRefContext } from "../context/state";
+import { useFetch } from "../hooks/useFetchData";
+import { useScroll } from "../hooks/useScroll";
 import styles from "../styles/scss/pages/Home.module.scss";
-// @ts-ignore
-import LocomotiveScroll from "locomotive-scroll";
-import ASScroll from "@ashthornton/asscroll";
+
+export type NewsDataProps = {
+  uuid: string;
+  title: string;
+  description: string;
+  keywords: string;
+  snippet: string;
+  url: string;
+  image_url: string;
+  language: string;
+  published_at: string | Date;
+  source: string;
+  categories: string[];
+  locale: string;
+  relevance_score: number | null;
+};
 
 const Home: NextPage = () => {
-  const ref = useRef<HTMLDivElement>(null!);
-  useEffect(() => {
-    const locoscroll = new LocomotiveScroll({
-      el: ref.current,
-      smooth: true,
-      horizontal: true,
-    });
+  const { sections } = useRefContext();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-    const scroll = () => {
-      locoscroll.enable();
-    };
-    window.addEventListener("load", scroll);
+  useScroll(scrollRef);
 
-    return () => {
-      window.removeEventListener("load", scroll);
-    };
-  }, []);
+  // home is slice out while rendering so subtract 2 rather than 1
+  const lastIndex = sections && sections.length - 1;
+
+  console.log(lastIndex);
+
   return (
-    <div ref={ref} className={`${styles.container} scroll-container`}>
+    <div>
       <Head>
         <title>Nea</title>
         <meta name="description" content="Your self curated news feed" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div ref={scrollRef} className={`${styles.container}`}>
+        {sections.map((section, i) => {
+          if (i === 0) {
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                bgColor="black"
+                width="350px"
+              />
+            );
+          } else if (i === 1) {
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                bgColor="orange"
+                width="350px"
+              />
+            );
+          } else if (i === 2) {
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                width="700px"
+                num={i}
+              />
+            );
+          } else if (i === lastIndex) {
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                bgColor="black"
+                width="600px"
+              />
+            );
+          }
 
-      <NewsSectionContainer section="For you" bgColor="black" width="1000px" />
-      <NewsSectionContainer section="Headlines" bgColor="orange" />
-      <NewsSectionContainer section="Sports" width="1028px" />
-      <NewsSectionContainer section="politics" width="800px" />
-      <NewsSectionContainer section="movies" />
-      <NewsSectionContainer section="health" width="1000px" />
+          return <NewsSectionContainer key={i} section={section} />;
+        })}
+      </div>
     </div>
   );
 };
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const data: NewsDataProps[] = await fetcherNewsapi(newsapiurl);
+
+//   return {
+//     props: { fallbackData: data },
+//   };
+// };
 
 export default Home;

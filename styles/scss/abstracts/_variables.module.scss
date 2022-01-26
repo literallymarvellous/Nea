@@ -9,8 +9,19 @@ $lightorange: hsl(10, 31%, 48%);
 $orangered: hsl(16, 93%, 43%);
 $swatch_8: hsl(11, 32%, 74%);
 
+// heights
+$headerheight: 98px;
+
+// fonts
+$lato: "Lato", sans-serif;
+$pt-serif: "PT Serif", serif;
+$roboto: "Roboto", sans-serif;
+$montserrat: "Montserrat", sans-serif;
+$opensans: "Open Sans", sans-serif;
+
 :export {
   blackClr: $black;
   whiteClr: $white;
   orangeredClr: $orangered;
+  headerHeight: $headerheight;
 }
