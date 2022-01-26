@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useEffect, useRef } from "react";
 import NewsSectionContainer from "../components/NewsContainer";
 import { useRefContext } from "../context/state";
+import { useFetch } from "../hooks/useFetchData";
 import { useScroll } from "../hooks/useScroll";
 import styles from "../styles/scss/pages/Home.module.scss";
 
