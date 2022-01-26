@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   useScroll(scrollRef);
 
   // home is slice out while rendering so subtract 2 rather than 1
-  const lastIndex = sections && sections.length - 2;
+  const lastIndex = sections && sections.length - 1;
 
   console.log(lastIndex);
 
@@ -41,10 +41,15 @@ const Home: NextPage = () => {
         <meta name="description" content="Your self curated news feed" />
       </Head>
       <div ref={scrollRef} className={`${styles.container}`}>
-        {sections.slice(1).map((section, i) => {
+        {sections.map((section, i) => {
           if (i === 0) {
             return (
-              <NewsSectionContainer key={i} section={section} bgColor="black" />
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                bgColor="black"
+                width="350px"
+              />
             );
           } else if (i === 1) {
             return (
@@ -52,15 +57,27 @@ const Home: NextPage = () => {
                 key={i}
                 section={section}
                 bgColor="orange"
+                width="350px"
+              />
+            );
+          } else if (i === 2) {
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                width="700px"
+                num={i}
               />
             );
           } else if (i === lastIndex) {
-            <NewsSectionContainer
-              key={i}
-              section={section}
-              bgColor="black"
-              width="700px"
-            />;
+            return (
+              <NewsSectionContainer
+                key={i}
+                section={section}
+                bgColor="black"
+                width="600px"
+              />
+            );
           }
 
           return <NewsSectionContainer key={i} section={section} />;

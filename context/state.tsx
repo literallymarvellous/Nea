@@ -13,16 +13,7 @@ interface RefObject {
   sections: string[];
 }
 
-const sections = [
-  "home",
-  "general",
-  "tech",
-  "business",
-  "science",
-  "sports",
-  "entertainment",
-  "politics",
-];
+const sections = ["general", "tech", "business", "sports", "entertainment"];
 
 // export const RefContext = createContext<RefObject>();
 export const RefContext = createContext<RefObject>({

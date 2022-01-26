@@ -36,11 +36,11 @@ const Header = () => {
             <FaSearch className="searchicon" />
           </div>
           {session ? (
-            <div className="signIn">
+            <div className={styles.btn}>
               <button onClick={() => signOut()}>Sign out</button>
             </div>
           ) : (
-            <div>
+            <div className={styles.btn}>
               <button onClick={() => signIn()}>Sign in</button>
             </div>
           )}
@@ -50,24 +50,13 @@ const Header = () => {
       <nav className={styles.bottomNav}>
         <ul>
           {sections.map((section) => {
-            if (section === "home") {
-              return (
-                <li
-                  key={section}
-                  onMouseEnter={mouseEnter}
-                  onMouseLeave={mouseLeave}
-                >
-                  <Link href="/">{section}</Link>
-                </li>
-              );
-            }
             return (
               <li
                 key={section}
                 onMouseEnter={mouseEnter}
                 onMouseLeave={mouseLeave}
               >
-                <Link href={`/${section}`}>{section}</Link>
+                <a href={`#${section}`}>{section}</a>
               </li>
             );
           })}

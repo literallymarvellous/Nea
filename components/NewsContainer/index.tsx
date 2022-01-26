@@ -28,10 +28,12 @@ const NewsSectionContainer = ({
         width={width}
         last={last}
       >
-        <div className="asscroll-block block">
+        <div id={section} className="asscroll-block block">
           <div className="header">
-            <div className="category">{section}</div>
-            <div>All</div>
+            <div className="subheader">
+              <div className="category">{section}</div>
+              <div>All</div>
+            </div>
           </div>
           {data?.map((news, i) => (
             <InnerContainer key={i} data={news} />
