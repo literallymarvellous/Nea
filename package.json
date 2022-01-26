@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@ashthornton/asscroll": "^2.0.4",
-    "@types/next-auth": "^3.15.0",
     "@types/node": "17.0.9",
     "@types/react": "17.0.38",
     "@types/styled-components": "^5.1.20",
