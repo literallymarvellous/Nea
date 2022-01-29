@@ -1,4 +1,3 @@
-import Link from "next/link";
 import styles from "../../styles/scss/layout/Header.module.scss";
 import dayjs from "dayjs";
 import { FaSearch } from "react-icons/fa";
@@ -8,7 +7,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
   const { onLink, setOnLink, sections } = useRefContext();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  console.log(session);
+  console.log(status);
 
   const mouseEnter = () => {
     if (!onLink) {
@@ -37,6 +39,7 @@ const Header = () => {
           </div>
           {session ? (
             <div className={styles.btn}>
+              Hello, {session.user?.email ?? session.user?.name} <br />
               <button onClick={() => signOut()}>Sign out</button>
             </div>
           ) : (

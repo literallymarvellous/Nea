@@ -32,8 +32,6 @@ const Home: NextPage = () => {
   // home is slice out while rendering so subtract 2 rather than 1
   const lastIndex = sections && sections.length - 1;
 
-  console.log(lastIndex);
-
   return (
     <div>
       <Head>
