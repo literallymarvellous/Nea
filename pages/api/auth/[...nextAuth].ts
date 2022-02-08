@@ -32,8 +32,4 @@ const options = {
       },
     },
   },
-  // TODO: add custom signin page
-  // pages: {
-  //   signIn: "/auth/signin",
-  // },
 };
